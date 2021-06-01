@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -33,4 +34,9 @@ public class BoardController {
         return "board/form";
     }
 
+    @PostMapping("/form")
+    public String postForm(@Valid Board board, BindingResult bindingResult, Authentication authentication) {
+        boardRepository.save(board);
+        return "redirect:/board/list";
+    }
 }
